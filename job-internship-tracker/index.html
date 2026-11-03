@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Track job and internship applications in one place." />
+  <title>Trackr — Job & Internship Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Trackr home">
+        <span class="brand-mark">T</span>
+        <span>trackr<span class="brand-dot">.</span></span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-link" href="#applications"><span class="nav-icon">▤</span> Applications</a>
+      </nav>
+
+      <div class="sidebar-tip">
+        <div class="tip-icon">✦</div>
+        <strong>Stay consistent.</strong>
+        <p>Small steps every day bring you closer to your next opportunity.</p>
+      </div>
+
+      <div class="profile">
+        <div class="avatar">YS</div>
+        <div><strong>Your workspace</strong><small>Personal tracker</small></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="today-label">YOUR CAREER DASHBOARD</p>
+          <h1>Good to see you<span class="heading-period">.</span></h1>
+          <p class="subheading">Keep your applications organized and moving forward.</p>
+        </div>
+        <button class="primary-btn" id="open-add-modal"><span>＋</span> Add application</button>
+      </header>
+
+      <section class="stats-grid" id="overview" aria-label="Application statistics">
+        <article class="stat-card total-card">
+          <div class="stat-top"><span>Total applications</span><span class="stat-symbol">▤</span></div>
+          <div class="stat-value" id="stat-total">0</div>
+          <div class="stat-foot">All opportunities tracked</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Applied</span><span class="stat-symbol blue">↗</span></div>
+          <div class="stat-value" id="stat-applied">0</div>
+          <div class="stat-foot">Waiting for a response</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Interview</span><span class="stat-symbol purple">◎</span></div>
+          <div class="stat-value" id="stat-interview">0</div>
+          <div class="stat-foot">In the interview process</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Offers</span><span class="stat-symbol green">✓</span></div>
+          <div class="stat-value" id="stat-offer">0</div>
+          <div class="stat-foot">Offers received</div>
+        </article>
+      </section>
+
+      <section class="content-card" id="applications">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YOUR PIPELINE</p>
+            <h2>Applications</h2>
+          </div>
+          <span class="record-count" id="record-count">0 records</span>
+        </div>
+
+        <div class="toolbar">
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="search-input" type="search" placeholder="Search company or role..." />
+          </label>
+          <div class="filters">
+            <select id="status-filter" aria-label="Filter by status">
+              <option value="All">All statuses</option>
+              <option value="Wishlist">Wishlist</option>
+              <option value="Applied">Applied</option>
+              <option value="Interview">Interview</option>
+              <option value="Offer">Offer</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+            <select id="type-filter" aria-label="Filter by opportunity type">
+              <option value="All">All types</option>
+              <option value="Internship">Internship</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Freelance">Freelance</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>COMPANY / ROLE</th>
+                <th>TYPE</th>
+                <th>DATE APPLIED</th>
+                <th>STATUS</th>
+                <th>LOCATION</th>
+                <th><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="applications-body"></tbody>
+          </table>
+          <div class="empty-state" id="empty-state">
+            <div class="empty-illustration">▤</div>
+            <h3>No applications yet</h3>
+            <p>Add your first opportunity to start tracking your progress.</p>
+            <button class="secondary-btn" id="empty-add-btn">＋ Add your first application</button>
+          </div>
+        </div>
+        <div class="table-footer">
+          <span id="showing-label">Showing 0 applications</span>
+          <button class="text-btn" id="clear-filters">Clear filters</button>
+        </div>
+      </section>
+
+      <footer class="footer-note">Made to keep your next opportunity within reach. <span>✦</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <div><p class="eyebrow">OPPORTUNITY DETAILS</p><h2 id="modal-title">Add application</h2></div>
+        <button class="icon-btn" id="close-modal" aria-label="Close dialog">×</button>
+      </div>
+      <form id="application-form">
+        <input type="hidden" id="application-id" />
+        <div class="form-grid">
+          <label class="field full">Company name <span>*</span>
+            <input id="company" name="company" required maxlength="70" placeholder="e.g. Google" />
+          </label>
+          <label class="field full">Job title / Role <span>*</span>
+            <input id="role" name="role" required maxlength="90" placeholder="e.g. Frontend Developer Intern" />
+          </label>
+          <label class="field">Opportunity type
+            <select id="type" name="type">
+              <option>Internship</option><option>Full-time</option><option>Part-time</option><option>Freelance</option>
+            </select>
+          </label>
+          <label class="field">Status
+            <select id="status" name="status">
+              <option>Wishlist</option><option selected>Applied</option><option>Interview</option><option>Offer</option><option>Rejected</option>
+            </select>
+          </label>
+          <label class="field">Date applied
+            <input id="date-applied" name="dateApplied" type="date" />
+          </label>
+          <label class="field">Location / Work mode
+            <input id="location" name="location" maxlength="70" placeholder="Remote, Bengaluru..." />
+          </label>
+          <label class="field full">Application link
+            <input id="link" name="link" type="url" placeholder="https://company.com/careers/..." />
+          </label>
+          <label class="field full">Notes
+            <textarea id="notes" name="notes" rows="3" maxlength="500" placeholder="Recruiter contact, follow-up date, interview notes..."></textarea>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" id="cancel-modal">Cancel</button>
+          <button type="submit" class="primary-btn" id="save-btn">Save application</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
