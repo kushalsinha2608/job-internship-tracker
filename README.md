@@ -1,20 +1,66 @@
-# 🎯 Job Internship Tracker
+🎯 Trackr – Job & Internship Tracker
 
-A clean, lightweight web application built to help job seekers and students stay organized during their internship search process. Track where you've applied, monitor application statuses, and manage deadlines all in one place.
+A modern, responsive web application designed to help students and job seekers organize their job and internship applications.
 
-## 🚀 Features
-- **Add Applications:** Input company names, roles, application dates, and statuses.
-- **Track Status:** Easily update whether an application is *Pending*, *Interviewing*, *Rejected*, or *Offered*.
-- **Local Storage:** (Optional) Keeps your data saved securely in your browser.
-- **Responsive Design:** Clean layout optimized for both desktop and mobile use.
+🚀 Live Demo
 
-## 🛠️ Built With
-- **HTML5** – Structure and semantic markup
-- **CSS3** – Styling, layouts, and responsive design
-- **JavaScript (ES6+)** – DOM manipulation and interactive logic
+"Open Trackr" (https://kushalsinha2608.github.io/job-internship-tracker/)
 
-## 💻 Getting Started
-To run this project locally, simply clone or download the repository and open `index.html` in your web browser:
+✨ Features
 
-```bash
-git clone [https://github.com/kushalsinha2608/job-internship-tracker.git](https://github.com/kushalsinha2608/job-internship-tracker.git)
+- 📊 Dashboard with application statistics
+- ➕ Add new job and internship applications
+- ✏️ Edit existing applications
+- 🗑️ Delete applications
+- 🔍 Search applications by company or role
+- 🏷️ Filter by application status and opportunity type
+- 📅 Track application dates
+- 📍 Store location and work-mode details
+- 💾 Save application data using browser local storage
+- 📱 Responsive interface for desktop and mobile
+
+🛠️ Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- Browser Local Storage
+
+📂 Project Structure
+
+job-internship-tracker/
+│
+├── index.html
+├── style.css
+├── script.js
+└── README.md
+
+💻 Run Locally
+
+1. Clone the repository:
+
+git clone https://github.com/kushalsinha2608/job-internship-tracker.git
+
+2. Open the project folder.
+3. Open "index.html" in your browser.
+
+🌐 Deployment
+
+This project is hosted using GitHub Pages.
+
+Live website:
+https://kushalsinha2608.github.io/job-internship-tracker/
+
+🎯 Purpose
+
+This project was developed to practice front-end web development, JavaScript DOM manipulation, CRUD operations, and responsive UI design.
+
+👨‍💻 Author
+
+Kushal Sinha
+
+GitHub: "@kushalsinha2608" (https://github.com/kushalsinha2608)
+
+---
+
+⭐ If you find this project useful, consider giving it a star!
