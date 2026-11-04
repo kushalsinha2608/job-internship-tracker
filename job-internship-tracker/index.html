@@ -1,27 +1,92 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Track job and internship applications in one place." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track your job and internship applications with Trackr.">
   <title>Trackr — Job & Internship Tracker</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a class="brand" href="#" aria-label="Trackr home">
+
+  <!-- AUTHENTICATION -->
+  <main id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <a class="brand auth-brand" href="#">
         <span class="brand-mark">T</span>
-        <span>trackr<span class="brand-dot">.</span></span>
+        trackr<span class="brand-dot">.</span>
+      </a>
+
+      <div id="login-panel">
+        <p class="eyebrow">WELCOME BACK</p>
+        <h1>Login to Trackr.</h1>
+        <p class="auth-description">Your next opportunity starts here.</p>
+
+        <form id="login-form">
+          <label class="field">Gmail address
+            <input id="login-email" type="email" placeholder="you@gmail.com" required>
+          </label>
+          <label class="field">Password
+            <input id="login-password" type="password" placeholder="Enter your password" required>
+          </label>
+          <button class="primary-btn full-btn" type="submit">Login</button>
+        </form>
+
+        <button class="text-btn auth-switch" id="forgot-password">Forgot password?</button>
+        <p class="auth-switch">Don't have an account?
+          <button class="text-btn" id="show-signup">Sign up</button>
+        </p>
+      </div>
+
+      <div id="signup-panel" class="hidden">
+        <p class="eyebrow">CREATE YOUR ACCOUNT</p>
+        <h1>Join Trackr.</h1>
+        <p class="auth-description">Create your personal application tracker.</p>
+
+        <form id="signup-form">
+          <label class="field">Full name
+            <input id="signup-name" type="text" placeholder="Your name" maxlength="60" required>
+          </label>
+          <label class="field">Gmail address
+            <input id="signup-email" type="email" placeholder="you@gmail.com" required>
+          </label>
+          <label class="field">Create password
+            <input id="signup-password" type="password" minlength="8" placeholder="At least 8 characters" required>
+          </label>
+          <label class="field">Confirm password
+            <input id="confirm-password" type="password" minlength="8" placeholder="Enter password again" required>
+          </label>
+          <button class="primary-btn full-btn" type="submit">Create account</button>
+        </form>
+
+        <p class="auth-switch">Already have an account?
+          <button class="text-btn" id="show-login">Login</button>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- DASHBOARD -->
+  <div class="app-shell hidden" id="app-shell">
+
+    <aside class="sidebar">
+      <a class="brand" href="#">
+        <span class="brand-mark">T</span>
+        trackr<span class="brand-dot">.</span>
       </a>
 
       <div class="sidebar-label">WORKSPACE</div>
-      <nav class="side-nav" aria-label="Main navigation">
-        <a class="nav-link active" href="#overview"><span class="nav-icon">▦</span> Overview</a>
-        <a class="nav-link" href="#applications"><span class="nav-icon">▤</span> Applications</a>
+      <nav class="side-nav">
+        <a class="nav-link active" href="#overview">▦ Overview</a>
+        <a class="nav-link" href="#applications">▤ Applications</a>
+        <a class="nav-link" href="#analytics">▥ Analytics</a>
+        <a class="nav-link" href="#reminders">◷ Reminders</a>
       </nav>
 
       <div class="sidebar-tip">
@@ -31,9 +96,15 @@
       </div>
 
       <div class="profile">
-        <div class="avatar">YS</div>
-        <div><strong>Your workspace</strong><small>Personal tracker</small></div>
+        <div class="avatar" id="profile-avatar">KS</div>
+        <div class="profile-info">
+          <strong id="profile-name">Your workspace</strong>
+          <small id="profile-email">Personal tracker</small>
+        </div>
+        <button class="small-action" id="edit-profile" title="Edit profile">✎</button>
       </div>
+
+      <button class="secondary-btn logout-btn" id="logout-btn">Log out ↗</button>
     </aside>
 
     <main class="main-content">
@@ -43,61 +114,64 @@
           <h1>Good to see you<span class="heading-period">.</span></h1>
           <p class="subheading">Keep your applications organized and moving forward.</p>
         </div>
-        <button class="primary-btn" id="open-add-modal"><span>＋</span> Add application</button>
+
+        <div class="top-actions">
+          <button class="secondary-btn" id="theme-toggle">🌙 Dark mode</button>
+          <button class="primary-btn" id="open-add-modal">＋ Add application</button>
+        </div>
       </header>
 
-      <section class="stats-grid" id="overview" aria-label="Application statistics">
+      <!-- STATS -->
+      <section class="stats-grid" id="overview">
         <article class="stat-card total-card">
-          <div class="stat-top"><span>Total applications</span><span class="stat-symbol">▤</span></div>
+          <div class="stat-top">Total applications</div>
           <div class="stat-value" id="stat-total">0</div>
           <div class="stat-foot">All opportunities tracked</div>
         </article>
         <article class="stat-card">
-          <div class="stat-top"><span>Applied</span><span class="stat-symbol blue">↗</span></div>
+          <div class="stat-top">Applied</div>
           <div class="stat-value" id="stat-applied">0</div>
           <div class="stat-foot">Waiting for a response</div>
         </article>
         <article class="stat-card">
-          <div class="stat-top"><span>Interview</span><span class="stat-symbol purple">◎</span></div>
+          <div class="stat-top">Interviews</div>
           <div class="stat-value" id="stat-interview">0</div>
           <div class="stat-foot">In the interview process</div>
         </article>
         <article class="stat-card">
-          <div class="stat-top"><span>Offers</span><span class="stat-symbol green">✓</span></div>
+          <div class="stat-top">Offers</div>
           <div class="stat-value" id="stat-offer">0</div>
           <div class="stat-foot">Offers received</div>
         </article>
       </section>
 
+      <!-- APPLICATIONS -->
       <section class="content-card" id="applications">
         <div class="section-heading">
           <div>
             <p class="eyebrow">YOUR PIPELINE</p>
             <h2>Applications</h2>
           </div>
-          <span class="record-count" id="record-count">0 records</span>
+          <span id="record-count">0 records</span>
         </div>
 
         <div class="toolbar">
-          <label class="search-box">
-            <span>⌕</span>
-            <input id="search-input" type="search" placeholder="Search company or role..." />
-          </label>
+          <input id="search-input" type="search" placeholder="Search company or role...">
           <div class="filters">
-            <select id="status-filter" aria-label="Filter by status">
+            <select id="status-filter">
               <option value="All">All statuses</option>
-              <option value="Wishlist">Wishlist</option>
-              <option value="Applied">Applied</option>
-              <option value="Interview">Interview</option>
-              <option value="Offer">Offer</option>
-              <option value="Rejected">Rejected</option>
+              <option>Wishlist</option>
+              <option>Applied</option>
+              <option>Interview</option>
+              <option>Offer</option>
+              <option>Rejected</option>
             </select>
-            <select id="type-filter" aria-label="Filter by opportunity type">
+            <select id="type-filter">
               <option value="All">All types</option>
-              <option value="Internship">Internship</option>
-              <option value="Full-time">Full-time</option>
-              <option value="Part-time">Part-time</option>
-              <option value="Freelance">Freelance</option>
+              <option>Internship</option>
+              <option>Full-time</option>
+              <option>Part-time</option>
+              <option>Freelance</option>
             </select>
           </div>
         </div>
@@ -109,13 +183,15 @@
                 <th>COMPANY / ROLE</th>
                 <th>TYPE</th>
                 <th>DATE APPLIED</th>
+                <th>FOLLOW-UP</th>
                 <th>STATUS</th>
                 <th>LOCATION</th>
-                <th><span class="sr-only">Actions</span></th>
+                <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody id="applications-body"></tbody>
           </table>
+
           <div class="empty-state" id="empty-state">
             <div class="empty-illustration">▤</div>
             <h3>No applications yet</h3>
@@ -129,46 +205,112 @@
         </div>
       </section>
 
-      <footer class="footer-note">Made to keep your next opportunity within reach. <span>✦</span></footer>
+      <!-- ANALYTICS -->
+      <section class="content-card analytics-card" id="analytics">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YOUR PROGRESS</p>
+            <h2>Application analytics</h2>
+          </div>
+        </div>
+        <div class="chart-grid">
+          <div class="chart-container">
+            <h3>Application status</h3>
+            <canvas id="status-chart"></canvas>
+          </div>
+          <div class="chart-container">
+            <h3>Application breakdown</h3>
+            <canvas id="type-chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- REMINDERS -->
+      <section class="content-card" id="reminders">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">DON'T MISS OUT</p>
+            <h2>Follow-up reminders</h2>
+          </div>
+          <button class="secondary-btn" id="enable-notifications">Enable notifications</button>
+        </div>
+        <div id="reminder-list" class="reminder-list">
+          <p class="muted">No upcoming reminders.</p>
+        </div>
+      </section>
+
+      <!-- BACKUP AND EXPORT -->
+      <section class="content-card backup-card">
+        <div>
+          <p class="eyebrow">YOUR DATA</p>
+          <h2>Backup & Export</h2>
+          <p class="muted">Download your records or restore a previous backup.</p>
+        </div>
+        <div class="backup-actions">
+          <button class="secondary-btn" id="export-csv">Export CSV</button>
+          <button class="secondary-btn" id="export-json">Download backup</button>
+          <button class="secondary-btn" id="import-json-btn">Import backup</button>
+          <input type="file" id="import-json" accept=".json,application/json" hidden>
+        </div>
+      </section>
+
+      <footer class="footer-note">
+        Made to keep your next opportunity within reach. <span>✦</span>
+      </footer>
     </main>
   </div>
 
-  <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <!-- ADD / EDIT APPLICATION MODAL -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <section class="modal">
       <div class="modal-header">
-        <div><p class="eyebrow">OPPORTUNITY DETAILS</p><h2 id="modal-title">Add application</h2></div>
-        <button class="icon-btn" id="close-modal" aria-label="Close dialog">×</button>
+        <div>
+          <p class="eyebrow">OPPORTUNITY DETAILS</p>
+          <h2 id="modal-title">Add application</h2>
+        </div>
+        <button class="icon-btn" id="close-modal">×</button>
       </div>
+
       <form id="application-form">
-        <input type="hidden" id="application-id" />
+        <input type="hidden" id="application-id">
         <div class="form-grid">
-          <label class="field full">Company name <span>*</span>
-            <input id="company" name="company" required maxlength="70" placeholder="e.g. Google" />
+          <label class="field full">Company name *
+            <input id="company" required maxlength="70" placeholder="e.g. Google">
           </label>
-          <label class="field full">Job title / Role <span>*</span>
-            <input id="role" name="role" required maxlength="90" placeholder="e.g. Frontend Developer Intern" />
+          <label class="field full">Job title / Role *
+            <input id="role" required maxlength="90" placeholder="e.g. Frontend Developer Intern">
           </label>
           <label class="field">Opportunity type
-            <select id="type" name="type">
-              <option>Internship</option><option>Full-time</option><option>Part-time</option><option>Freelance</option>
+            <select id="type">
+              <option>Internship</option>
+              <option>Full-time</option>
+              <option>Part-time</option>
+              <option>Freelance</option>
             </select>
           </label>
           <label class="field">Status
-            <select id="status" name="status">
-              <option>Wishlist</option><option selected>Applied</option><option>Interview</option><option>Offer</option><option>Rejected</option>
+            <select id="status">
+              <option>Wishlist</option>
+              <option selected>Applied</option>
+              <option>Interview</option>
+              <option>Offer</option>
+              <option>Rejected</option>
             </select>
           </label>
           <label class="field">Date applied
-            <input id="date-applied" name="dateApplied" type="date" />
+            <input id="date-applied" type="date">
           </label>
-          <label class="field">Location / Work mode
-            <input id="location" name="location" maxlength="70" placeholder="Remote, Bengaluru..." />
+          <label class="field">Follow-up date
+            <input id="follow-up-date" type="date">
+          </label>
+          <label class="field full">Location / Work mode
+            <input id="location" maxlength="70" placeholder="Remote, Bengaluru...">
           </label>
           <label class="field full">Application link
-            <input id="link" name="link" type="url" placeholder="https://company.com/careers/..." />
+            <input id="link" type="url" placeholder="https://company.com/careers/...">
           </label>
           <label class="field full">Notes
-            <textarea id="notes" name="notes" rows="3" maxlength="500" placeholder="Recruiter contact, follow-up date, interview notes..."></textarea>
+            <textarea id="notes" rows="3" maxlength="500" placeholder="Recruiter contact, interview notes..."></textarea>
           </label>
         </div>
         <div class="modal-actions">
@@ -180,6 +322,7 @@
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js"></script>
+
+  <script type="module" src="script.js"></script>
 </body>
 </html>
