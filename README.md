@@ -1,66 +1,70 @@
-🎯 Trackr – Job & Internship Tracker
+Trackr – Job & Internship Tracker
 
-A modern, responsive web application designed to help students and job seekers organize their job and internship applications.
+Trackr is a web-based application designed to help students and job seekers manage their job and internship applications in one place. It provides an organized platform to track application progress, manage opportunities, and stay updated throughout the recruitment process.
 
-🚀 Live Demo
+🚀 Features
 
-"Open Trackr" (https://kushalsinha2608.github.io/job-internship-tracker/)
-
-✨ Features
-
-- 📊 Dashboard with application statistics
-- ➕ Add new job and internship applications
-- ✏️ Edit existing applications
-- 🗑️ Delete applications
-- 🔍 Search applications by company or role
-- 🏷️ Filter by application status and opportunity type
-- 📅 Track application dates
-- 📍 Store location and work-mode details
-- 💾 Save application data using browser local storage
-- 📱 Responsive interface for desktop and mobile
+- User Authentication: Secure Sign Up and Login functionality.
+- Dashboard: View and manage your job and internship applications.
+- Application Tracking: Track applications through different stages.
+- Add Applications: Store company names, job roles, application dates, and other details.
+- Edit & Delete: Update or remove existing applications.
+- Cloud Database: Firebase Firestore integration for storing application data.
+- User Profiles: Manage individual user accounts.
+- Responsive Design: Works across desktop and mobile devices.
 
 🛠️ Technologies Used
 
 - HTML5
 - CSS3
-- JavaScript (ES6+)
-- Browser Local Storage
+- JavaScript
+- Firebase Authentication
+- Firebase Firestore
+- Git & GitHub
 
 📂 Project Structure
 
-job-internship-tracker/
+Trackr/
 │
 ├── index.html
 ├── style.css
 ├── script.js
 └── README.md
 
-💻 Run Locally
+⚙️ Getting Started
 
-1. Clone the repository:
+1. Clone this repository:
+   
+   git clone https://github.com/kushalsinha2608/job-internship-tracker.git
 
-git clone https://github.com/kushalsinha2608/job-internship-tracker.git
+2. Open the project folder in VS Code.
 
-2. Open the project folder.
-3. Open "index.html" in your browser.
+3. Configure your Firebase project and update the Firebase configuration in "script.js".
 
-🌐 Deployment
+4. Enable Firebase Authentication and Firestore Database.
 
-This project is hosted using GitHub Pages.
+5. Run the project using the VS Code Live Server extension.
 
-Live website:
-https://kushalsinha2608.github.io/job-internship-tracker/
+🎯 Project Goal
 
-🎯 Purpose
+The goal of Trackr is to simplify the job and internship application process by providing students with a centralized platform to organize opportunities and monitor their application progress.
 
-This project was developed to practice front-end web development, JavaScript DOM manipulation, CRUD operations, and responsive UI design.
+🔮 Future Improvements
 
-👨‍💻 Author
+- Application deadline reminders.
+- Advanced search and filtering.
+- Analytics and application statistics.
+- Resume and document management.
+- Email notifications.
+- Improved dashboard and user experience.
+
+👨‍💻 Developer
 
 Kushal Sinha
 
-GitHub: "@kushalsinha2608" (https://github.com/kushalsinha2608)
+B.Tech – Computer Science and Engineering
+CMR Institute of Technology
 
 ---
 
-⭐ If you find this project useful, consider giving it a star!
+⭐ If you find this project useful, consider giving the repository a star!
